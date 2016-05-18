@@ -1,0 +1,49 @@
+header {
+	background-color:$header-bg;
+	padding:3.6em 0;
+	
+	nav{
+		ul {
+  			list-style-type: none;
+			background-color: none;
+			
+			/* Float the list items side by side */
+			li {
+				float: left;
+				/* Style the links inside the list items */
+				a {
+					display: inline-block;
+					padding:10px;
+					text-decoration: none;
+					font-weight: 700;
+					font-size: 1em;
+					background-color:#fff;
+					margin-right: 1em;
+					text-transform:uppercase;
+					&:hover {
+						color:$text-color !important;
+						border-radius:4px;
+					}
+				}
+			}
+			li:last-child a {
+				margin-right: 0;
+				background:$brand-secondary;
+  				color:white;
+				border-radius:4px;
+			}
+		}
+	}
+
+
+	.mission {
+		font-weight: 300;
+		font-size: 1.875rem;
+		line-height: 1.2;
+		margin-top: 4.0rem;
+		padding:0 10px;
+		@include breakpoint(medium) {
+			font-size:2.6rem;
+		}
+	}
+}

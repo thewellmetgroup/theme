@@ -1,1 +1,121 @@
+/*^*^*^***^*^*^*^*^*^*^^*^*^*^*^*^*^*^*^*^*/
+/*-------FONTS-------*/
+@font-face {
+    font-family: 'lato';
+    src: url('../../dist/fonts/lato-light-webfont.woff2') format('woff2'),
+         url('../../dist/fonts/lato-light-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'lato';
+    src: url('../../dist/fonts/lato-lightitalic-webfont.woff2') format('woff2'),
+         url('../../dist/fonts/lato-lightitalic-webfont.woff') format('woff');
+    font-weight: 300;
+    font-style:italic;
+}
+
+@font-face {
+    font-family: 'lato';
+    src: url('../../dist/fonts/lato-regular-webfont.woff2') format('woff2'),
+         url('../../dist/fonts/lato-regular-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'lato';
+    src: url('../../dist/fonts/lato-italic-webfont.woff2') format('woff2'),
+         url('../../dist/fonts/lato-italic-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style:italic;
+}
+
+@font-face {
+    font-family: 'lato';
+    src: url('../../dist/fonts/lato-bold-webfont.woff2') format('woff2'),
+         url('../../dist/fonts/lato-bold-webfont.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'lato';
+    src: url('../../dist/fonts/lato-bolditalic-webfont.woff2') format('woff2'),
+         url('../../dist/fonts/lato-bolditalic-webfont.woff') format('woff');
+    font-weight: 700;
+    font-style:italic;
+}
+
+/*^*^*^***^*^*^*^*^*^*^^*^*^*^*^*^*^*^*^*^*/
+/*-------END FONTS-------*/
+
+
+/*^*^*^***^*^*^*^*^*^*^^*^*^*^*^*^*^*^*^*^*/
+/*-------Mixins---------------------------*/
+@mixin breakpoint($point) {
+    @if $point == large {
+        @media (min-width:1200px) {
+            @content;
+        }
+    }
+    @else if $point == medium {
+        @media (min-width:768px) {
+            @content;
+        }
+    }
+    @else if $point == small {
+        @media (min-width:580px) {
+            @content;
+        }
+    }
+}
+
+/*^*^*^***^*^*^*^*^*^*^^*^*^*^*^*^*^*^*^*^*/
+/*-------END Mixins----------------------*/
+
+
+
+
+body {
+	font-family:'lato', sans-serif;
+	font-size:$default-font-size;
+	color:$text-color;
+}
+
+h1 {
+	font-weight:300;
+	font-size:2em;
+	@include breakpoint(medium) {
+       font-size:3em;
+    }
+}
+h2 {
+	font-weight:300;
+	font-size:1.8em;
+	@include breakpoint(medium) {
+       font-size:2.6em;
+    }
+}
+
+ /* unvisited link */
+a:link {
+    color: $brand-primary;
+}
+
+/* visited link */
+a:visited {
+    color: $brand-primary;
+}
+
+/* mouse over link */
+a:hover {
+    color: $brand-secondary;
+}
+
+/* selected link */
+a:active {
+    color: $brand-tertiary;
+}
 
