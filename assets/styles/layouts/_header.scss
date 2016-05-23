@@ -2,37 +2,78 @@ header {
 	background-color:$header-bg;
 	padding:3.6em 0;
 	
+	
 	nav{
+		/*.container-fluid {
+			padding-left:0;
+			padding-right:0;
+		}
+		.navbar-collapse {
+			padding-left:0;
+			padding-right:0;
+		}*/
 		ul {
   			list-style-type: none;
 			background-color: none;
 			
 			/* Float the list items side by side */
 			li {
-				float: left;
 				/* Style the links inside the list items */
 				a {
 					display: inline-block;
-					padding:10px;
+					padding:10px !important;
+					line-height:normal;
 					text-decoration: none;
 					font-weight: 700;
-					font-size: 1em;
+					font-size: 0.775em;
 					background-color:#fff;
 					margin-right: 1em;
 					text-transform:uppercase;
+					border:1px solid #fff;
 					&:hover {
-						color:$text-color !important;
-						border-radius:4px;
+						background:none !important;
+						color:$text-color;
+					}
+					&:focus {
+						background:none !important;
 					}
 				}
 			}
-			li:last-child a {
+				
+			//assuming the only custom link in menu will be the donate link
+			li.menu-item-type-custom a {
 				margin-right: 0;
 				background:$brand-secondary;
   				color:white;
 				border-radius:4px;
 			}
 		}
+		
+		.dropdown-menu {
+			font-size:100%;
+			li > a {
+				line-height:inherit;
+				margin-right:0;
+				padding:3px 20px !important;
+			}
+			li > a:focus, 
+			li > a:hover {
+				 background-color:transparent;
+			}
+		}
+		button.navbar-toggle {
+			span.icon-bar {
+				background:$brand-primary;
+			}
+		}
+	}
+	.nav > a:hover,
+	.nav .open > a,
+	.nav .open > a:focus,
+	.nav .open > a:hover {
+		border-color:$grey;
+		border-bottom:none;
+		background-color:#ffffff !important;
 	}
 
 
