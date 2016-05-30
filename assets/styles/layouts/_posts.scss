@@ -1,0 +1,50 @@
+//GRANTEES
+.grantee-detail {
+	padding-top:30px;
+	
+	.bgstyle {
+		background-repeat:no-repeat;
+		background-size:cover;
+		background-position:top center;
+	}
+	.left, .right, .full {
+		min-height:400px;
+		position:relative;
+		@include breakpoint(large) {
+			min-height:600px;
+		}
+	}
+	.title {
+		position:absolute;
+		bottom:0;
+		background-color: rgba(0, 0, 0, .7);
+		padding:15px 30px;
+		z-index:10;
+		width:100%;
+		color:#FFF;
+		text-transform:uppercase;
+		.header {
+			font-size:.75em;
+		}
+		.name {
+			font-size:1.5em;
+		}
+	}
+	
+	.halphy {
+		min-height:200px;
+		@include breakpoint(large) {
+			min-height:300px;
+		}
+		&.top {
+			margin-top:15px;
+			@include breakpoint(medium) {
+				margin-top:0;
+			}
+		}
+		&.bottom {
+			border-top:15px solid $body-bg;
+		}
+	}
+
+}

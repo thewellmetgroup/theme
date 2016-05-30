@@ -1,42 +1,106 @@
 header {
 	background-color:$header-bg;
-	padding:3.6em 0;
 	
 	
-	nav{
-		/*.container-fluid {
-			padding-left:0;
-			padding-right:0;
+	.container {
+		position:relative;
+	}
+	
+	.logo {
+  		width: 31.91489%;
+  		float: left;
+  		padding-left:15px;
+  		
+  		padding:15px 0;
+		@include breakpoint(medium) {
+			padding:3.6em 0;
 		}
+  		
+  		img {
+  			width: 83.33333%;
+  			max-width: 250px;
+ 			min-width: 150px;
+  			height: auto;
+  		}
+  	}
+
+	.nav .open > a,
+	.nav .open > a:focus,
+	.nav .open > a:hover,
+	.nav > a,
+	.nav > a:focus,
+	.nav > a:hover {
+		background-color:#FFF;
+    	border-color: #FFF;
+    	color:$text-color;
+    	border-top-left-radius: 4px;
+    	border-top-right-radius: 4px;
+    	border-bottom:none;
+	}
+	
+	.navbar-nav > li > a {
+		padding:10px 20px;
+	}
+	nav {
+		
+		@include breakpoint(medium) {
+			padding-top:3.6em;
+		}
+		&.navbar {
+			position:absolute !important;
+			top:0;
+			right:0;
+			margin:0;
+		}
+		
+		.container-fluid,
 		.navbar-collapse {
 			padding-left:0;
 			padding-right:0;
-		}*/
+			background-color:transparent;
+		}
+		.navbar-collapse.in {
+			background-color:#FFF;
+		}
+		
+		
 		ul {
   			list-style-type: none;
 			background-color: none;
+			margin:0 !important;
 			
 			/* Float the list items side by side */
 			li {
 				/* Style the links inside the list items */
 				a {
 					display: inline-block;
-					padding:10px !important;
 					line-height:normal;
 					text-decoration: none;
 					font-weight: 700;
-					font-size: 0.775em;
+					
 					background-color:#fff;
 					margin-right: 1em;
 					text-transform:uppercase;
 					border:1px solid #fff;
-					&:hover {
-						background:none !important;
-						color:$text-color;
+					
+					font-size:2em;
+					line-height:normal !important;
+					
+					&:hover, &:focus, &:active {
+						background-color:#FFF !important;
+						color:$text-color !important;
 					}
-					&:focus {
-						background:none !important;
+					
+					@include breakpoint(medium) {
+						font-size: 0.775em;
+						line-height:20px;
+						&:hover, &:focus, &:active {
+							background-color:$brand-primary !important;
+							color:#FFF !important;
+						}
 					}
+					
+					
 				}
 			}
 				
@@ -50,41 +114,55 @@ header {
 		}
 		
 		.dropdown-menu {
-			font-size:100%;
+			font-size:50%;
+			text-transform:none !important;
+			@include breakpoint(medium) {
+				font-size: 100%;
+			}
 			li > a {
 				line-height:inherit;
 				margin-right:0;
 				padding:3px 20px !important;
 			}
-			li > a:focus, 
-			li > a:hover {
-				 background-color:transparent;
-			}
+			
 		}
 		button.navbar-toggle {
 			span.icon-bar {
 				background:$brand-primary;
 			}
 		}
+		
+		
 	}
-	.nav > a:hover,
-	.nav .open > a,
-	.nav .open > a:focus,
-	.nav .open > a:hover {
-		border-color:$grey;
-		border-bottom:none;
-		background-color:#ffffff !important;
+	
+	nav, .mission {
+		width: 100%;
+  		float: none;
+  		clear: both;
+		@include breakpoint(medium) {
+			width: 64%;
+  			float: left;
+  			clear: none;
+  		}
 	}
-
 
 	.mission {
 		font-weight: 300;
 		font-size: 1.875rem;
 		line-height: 1.2;
-		margin-top: 4.0rem;
-		padding:0 10px;
-		@include breakpoint(medium) {
-			font-size:2.6rem;
+		margin-top: 130px;
+		padding:0;
+  		@include breakpoint(medium) {
+  			font-size:2.6rem;
+			padding-left: 0;
+			margin-left: 34px;
+			width:63%;
+
 		}
+		@include breakpoint(xlarge) {	
+    		padding-top: 40px;
+    		margin-left: 42px;
+		}
+		
 	}
 }

@@ -55,8 +55,13 @@
 /*^*^*^***^*^*^*^*^*^*^^*^*^*^*^*^*^*^*^*^*/
 /*-------Mixins---------------------------*/
 @mixin breakpoint($point) {
-    @if $point == large {
+    @if $point == xlarge {
         @media (min-width:1200px) {
+            @content;
+        }
+    }
+     @if $point == large {
+        @media (min-width:992px) {
             @content;
         }
     }
@@ -82,6 +87,7 @@ body {
 	font-family:'lato', sans-serif;
 	font-size:$default-font-size;
 	color:$text-color;
+	background-color:$body-bg;
 }
 
 h1 {
@@ -119,3 +125,12 @@ a:active {
     color: $brand-tertiary;
 }
 
+// 10px gutter
+.gutter-15.row {
+  margin-right: -7.5px;
+  margin-left: -7.5px;
+}
+.gutter-15 > [class^="col-"], .gutter-10 > [class^=" col-"] {
+  padding-right: 7.5px;
+  padding-left: 7.5px;
+}
