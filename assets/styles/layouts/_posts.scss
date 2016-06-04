@@ -31,19 +31,40 @@
 		}
 	}
 	
-	.halphy {
+	.full, .halfy {
+		margin-bottom:15px;
+		@include breakpoint(medium) {
+			margin-bottom:0;
+		}
+	}
+	
+	.halfy {
+		position: relative;
 		min-height:200px;
+		.halfy-content {
+			position: absolute;
+  			top: 50%;
+  			left: 50%;
+  			width:80%;
+  			transform: translate(-50%, -50%);
+  			color:#FFF;
+  			text-align:center;
+  			font-size:20px;
+  			@include breakpoint(medium) {
+				font-size:2vw;
+			}
+  		}
 		@include breakpoint(large) {
 			min-height:300px;
 		}
 		&.top {
-			margin-top:15px;
-			@include breakpoint(medium) {
-				margin-top:0;
-			}
+			
 		}
 		&.bottom {
-			border-top:15px solid $body-bg;
+			border-top:none;
+			@include breakpoint(medium) {
+				border-top:15px solid $body-bg;
+			}
 		}
 	}
 
