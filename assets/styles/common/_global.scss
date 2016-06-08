@@ -77,6 +77,22 @@
     }
 }
 
+@mixin iconfix {
+	-moz-font-feature-settings: normal;
+	-moz-font-language-override: normal;
+	-moz-osx-font-smoothing: grayscale;
+	font-size-adjust: none;
+	font-stretch: normal;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	line-height: 1;
+	text-rendering: auto;
+	display: block;
+	
+	-webkit-font-smoothing: antialiased;
+}
+
 /*^*^*^***^*^*^*^*^*^*^^*^*^*^*^*^*^*^*^*^*/
 /*-------END Mixins----------------------*/
 
@@ -105,6 +121,11 @@ h2 {
     }
 }
 
+.wrap {
+	position:relative;
+	z-index:100;
+	background-color:$body-bg;
+}
  /* unvisited link */
 a:link {
     color: $brand-primary;
@@ -134,3 +155,30 @@ a:active {
   padding-right: 7.5px;
   padding-left: 7.5px;
 }
+
+// BUTTONS
+.cr_btn, .cr_btn:visited {
+    display: inline-block;
+    background: #fff;
+    text-transform: uppercase;
+    padding: 16px 40px;
+    margin:15px 0 0 0;
+    border: 1px solid $btn-default;
+    color: $btn-default;
+    
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+	border-radius: 40px;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out
+}
+.cr_btn:hover,
+.cr_btn:focus,
+.cr_btn:active {
+   border-color:$brand-primary;
+   color:$brand-primary;
+   text-decoration:none;
+}
+//END BUTTONS

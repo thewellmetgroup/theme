@@ -1,4 +1,4 @@
-<header class="banner">
+<header class="banner<?php if (is_front_page()): echo " home"; endif; ?>">
 	<div class="container">
         	<div class="logo">
             	<a class="brand" href="<?= esc_url(home_url('/')); ?>">
@@ -29,8 +29,10 @@
                     ?>
         		</div>
         	</nav>
-        	<div class="mission">
-                <?php echo get_bloginfo('description'); ?>
-            </div>
+        	<?php if (is_front_page()): ?>
+        		<div class="mission">
+                	<?php echo get_bloginfo('description'); ?>
+            	</div>
+            <?php endif; ?>
 	</div>
 </header>

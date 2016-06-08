@@ -1,6 +1,11 @@
 <?php 	$grantee_images= get_field('images');
 		$grantee_mission=get_field('featured_mission');
 		$grantee_description=get_field('description');
+		$quote=get_field('quote');
+		$website_url=get_field('website_url');
+		$grant_amount=get_field('grant_amount');
+		$borough=get_field('borough');
+		$year=get_field('year');
 		
 		function trunc($phrase, $max_words) {
    			$phrase_array = explode(' ',$phrase);
@@ -12,7 +17,7 @@
 		//if the grantee mission if empty
 		if (empty($grantee_mission)) {
 			//set description excerpt as mission
-			$grantee_mission = trunc($grantee_description,25);
+			$grantee_mission = trunc($grantee_description,20);
 		}
 		
 		//if there are images for this grantee
@@ -36,8 +41,8 @@
 	  			endforeach;
 	  		} else {
 	  			//if just one
-	  			$single_img_url = $grantee_images[0]['sizes']['large'];
-				$single_img_alt = $grantee_images[0]['alt'];
+	  			$full_img_url = $grantee_images[0]['sizes']['large'];
+				$full_img_alt = $grantee_images[0]['alt'];
 	  		}
 	  	}
 	  	
@@ -77,6 +82,7 @@
         	} else {
         		$css_value = 'background-color:'.$picked_color.''; //must be the color
         		$halfy_content=$grantee_mission;
+        		$halfy_content.='<p><a href="#" class="cr_btn">See more</a></p>';
         	}
         	return '<div class="halfy '.$pos.' bgstyle" style="'.$css_value.'"><div class="halfy-content">'.$halfy_content.'</div></div>';
         }
@@ -136,10 +142,13 @@
         </div>
         <?php } else { ?>
         	<div class="col-xs-12">
-        		<?php if (count($grantee_images)==1) { ?>
-        			<div class="single-image"><img src="<?php echo $single_img_url; ?>" alt="<?php echo $single_img_alt; ?>"></div>
-        		<?php } ?>
-        		<div><?php echo $grantee_description; ?></div>
+        		<?php 
+        			if (count($grantee_images)==1) {
+        				echo fuller();
+        			}
+        			echo halfy('bottom','color'); 
+        		?>
+        		
         	</div>
         
         <?php }  ?>
@@ -148,20 +157,50 @@
 
 <div class="grantee-detail">
     <div class="row">
-    	<div class="col-sm-2">
+    	<div class="col-md-2">
 		</div>
-		<div class="col-sm-8">
+		<div class="col-md-8">
 			<article <?php post_class(); ?>>
  			 
+    			<?php if (!empty($quote)) { ?>
+    				<div class="quote">
+    					<?php echo $quote; ?><span>&#8221;</span>
+    				</div>
+    			<?php } ?>
     			
-    			<?php get_template_part('templates/entry-meta'); ?>
-  		
-  			<div class="entry-summary">
-    			<?php the_excerpt(); ?>
-  			</div>
+    			<div class="main-desc">
+    				<div class="row stats">
+    					<div class="col-xs-4">
+    						<i class="fa fa-calendar-o" aria-hidden="true"></i>
+    						<br>
+    						<?php echo $year; ?>
+    					</div>
+    					<div class="col-xs-4">
+    						<i class="fa fa-usd" aria-hidden="true"></i>
+							<br>
+    						<?php echo $grant_amount; ?>
+    					</div>
+    					<div class="col-xs-4">
+    						<i class="fa fa-map-marker" aria-hidden="true"></i>
+    						<br>
+    						<?php echo $borough; ?>
+    					</div>
+    				</div>
+    				<?php echo $grantee_description; ?>
+    			</div>
+    			
+    			<?php if (!empty($website_url)) { ?>
+    				<div class="website_url">
+    					<h3><?php _e('Learn more about this organization:','sage'); ?></h3>
+    					<a href="<?php echo $website_url; ?>" target="_blank" title="<?php echo get_the_title(); ?>"><?php echo $website_url; ?></a>
+    				</div>
+    			<?php } ?>
+    			
+    			
+    			
 			</article>
 		</div>
-		<div class="col-sm-2">
+		<div class="col-md-2">
 		</div>
 	</div>
 </div>

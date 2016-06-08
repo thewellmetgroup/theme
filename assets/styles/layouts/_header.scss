@@ -1,21 +1,23 @@
 header {
 	background-color:$header-bg;
-	
+	position:relative;
+	z-index:99;
 	
 	.container {
 		position:relative;
 	}
 	
 	.logo {
+		margin:-20px 0 -30px 0;
+		@include breakpoint(medium) {
+			margin:-25px 0 -35px 0;
+		}
+		@include breakpoint(large) {
+			margin:-35px 0 -50px 0;
+		}
   		width: 31.91489%;
   		float: left;
   		padding-left:15px;
-  		
-  		padding:15px 0;
-		@include breakpoint(medium) {
-			padding:3.6em 0;
-		}
-  		
   		img {
   			width: 83.33333%;
   			max-width: 250px;
@@ -23,6 +25,16 @@ header {
   			height: auto;
   		}
   	}
+  	&.home {
+  		.logo {
+  			margin:0;
+  			padding:15px 0;
+			@include breakpoint(medium) {
+				padding:3.6em 0;
+			}
+		}
+	}
+  		
 
 	.nav .open > a,
 	.nav .open > a:focus,
