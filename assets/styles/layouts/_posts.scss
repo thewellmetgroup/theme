@@ -130,3 +130,30 @@
 		}
 	}
 }
+
+//this is used within boxes that have images flushed to edges
+.content-padding {
+	padding:15px;
+}
+
+.grantee-item {
+	.item-wrapper {
+		background-color:#fff;
+		-webkit-box-shadow: 2px 2px 5px 1px rgba(0,0,0,.1);
+		box-shadow: 2px 2px 5px 1px rgba(0,0,0,.1);
+		
+		.thumb img {
+			width:100%;
+			height:auto;
+		}
+		.more-button {
+			padding-top:0;
+			padding-bottom:30px;
+			text-align:center;
+			.cr_btn {
+				margin-top:0;
+				font-size:14px;
+			}
+		}
+	}
+}

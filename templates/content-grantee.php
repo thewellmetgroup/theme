@@ -7,12 +7,7 @@
 		$borough=get_field('borough');
 		$year=get_field('year');
 		
-		function trunc($phrase, $max_words) {
-   			$phrase_array = explode(' ',$phrase);
-   			if(count($phrase_array) > $max_words && $max_words > 0)
-      			$phrase = implode(' ',array_slice($phrase_array, 0, $max_words)).'...';
-   			return $phrase;
-		}
+		
 		
 		//if the grantee mission if empty
 		if (empty($grantee_mission)) {

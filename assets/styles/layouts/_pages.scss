@@ -1,0 +1,16 @@
+
+//GRANTEE LISTING PAGE
+
+.grantee-search {
+	input, select {
+		width:20%;
+	}
+	
+	@include breakpoint(medium) {
+		text-align: right;
+    	padding-top: 45px;
+    }
+}
+.grantee-filters {
+	
+}
