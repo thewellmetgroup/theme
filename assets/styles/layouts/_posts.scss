@@ -72,36 +72,12 @@
 		}
 		.cr_btn {
 			background-color: rgba(49, 51, 61, .2);
-			font-size:60%;
 			border-color:transparent;
 			color:#FFF;
 		}
 	}
 	
-	.quote {
-		font-weight:300;
-		color:$brand-primary;
-		padding:30px 0;
-		font-size: 1.5em;
-		line-height:normal;
-		p, span {
-			display:inline;
-		}
-		@include breakpoint(medium) {
-			font-size: 2.5em;
-		}
-		&:before {
-			font-family: $iconfont;
-			display: block;
-			position: absolute;
-			text-indent: 0;
-			top: 35px;
-			left: -50px;
-			text-align: center;
-			content: "\f10d";
-			@include iconfix;
-		}
-	}
+	
 	.main-desc, .website_url {
 		padding-left:0;
 		padding-right:0;
@@ -136,7 +112,8 @@
 	padding:15px;
 }
 
-.grantee-item {
+.grantee-item, .staff-item {
+	padding-top:50px;
 	.item-wrapper {
 		background-color:#fff;
 		-webkit-box-shadow: 2px 2px 5px 1px rgba(0,0,0,.1);
@@ -153,7 +130,11 @@
 			.cr_btn {
 				margin-top:0;
 				font-size:14px;
+				background:#fff;
 			}
 		}
+	}
+	.stats {
+		font-weight:700;
 	}
 }

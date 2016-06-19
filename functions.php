@@ -111,5 +111,59 @@ function trunc($phrase, $max_words) {
      	$phrase = implode(' ',array_slice($phrase_array, 0, $max_words)).'...';
    	return $phrase;
 }
-
+//create div arrays so we can randomize block positions
+function fuller($picked_color,$full_img_url) {	 
+	$html = '<div class="full bgstyle" style="background-image:url(\''.$full_img_url.'\')">';
+	$html .= '<div class="title">';
+	if ( is_front_page() ) {
+	  $html .= '<span class="header" style="color:'.$picked_color.';">Recent Grantee</span><br>';
+	}
+	$html .= '<span class="name">'.get_the_title().'</span>';
+	$html .= '</div>';
+	$html .= '</div>';
+	  					 
+    return $html;
+}
+function halfy($pos,$bg_type,$picked_color,$halfy_img_url) {
+    $get_grantee_mission = new Grantee_Mission();
+	$grantee_mission = $get_grantee_mission->get_mission();
+    if ($bg_type=='image') {
+    	$css_value = 'background-image:url(\''.$halfy_img_url.'\')';
+    	$halfy_content="";
+    } else {
+    	$css_value = 'background-color:'.$picked_color.''; //must be the color
+		$halfy_content=$grantee_mission;
+		if ( is_front_page() || is_page_template( 'page-empowering-communities.php' ) ) {
+			$halfy_content.='<p><a href="'.get_the_permalink().'" class="cr_btn">'.__('See more','sage').'</a></p>';
+		}
+	}
+	return 
+	'<div class="halfy '.$pos.' bgstyle" style="'.$css_value.'"><div class="halfy-content">'.$halfy_content.'</div></div>';
+}
+class Random_color {
+			
+	  		public function get_color($rand) {
+        		//#79b118; //green
+	  			//#00c3df; //blue
+				//#ca195c; //purple
+				//#f4c021; //orange
+				$colors = array('#79b118','#00c3df','#ca195c','#f4c021');
+        		$picked_color=$colors[$rand-1];
+        		return $picked_color;
+    		}
+		}
+		
+		class Grantee_Mission {
+			
+	  		public function get_mission() {
+        		$grantee_mission=get_field('featured_mission');
+        		$grantee_description=get_field('description');
+				//if the grantee mission if empty
+				if (empty($grantee_mission)) {
+					//set description excerpt as mission
+					$grantee_mission = trunc($grantee_description,20);
+				}
+        		return $grantee_mission;
+    		}
+		}
 /**** END grantees *************/

@@ -10,7 +10,12 @@
 		?>
 	</div>
 	<div class="title content-padding">
-		<h3><a href="<?php echo esc_url( get_permalink() ); ?>"><?php echo get_the_title(); ?></a></h3>
+		<h2><a href="<?php echo esc_url( get_permalink() ); ?>"><?php echo get_the_title(); ?></a></h2>
+	</div>
+	<div class="stats content-padding">
+		<?php echo get_field('year'); ?> / <?php echo get_field('borough'); ?>
+		<br>
+		Grant: <?php echo get_field('grant_amount'); ?>
 	</div>
 	<div class="excerpt content-padding">
 		<?php 	if (has_excerpt()): the_excerpt();

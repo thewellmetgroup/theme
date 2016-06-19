@@ -1,4 +1,7 @@
-<?php 	$grantee_images= get_field('images');
+<?php 	
+
+		$rand=rand(1,4);
+		$grantee_images= get_field('images');
 		$grantee_mission=get_field('featured_mission');
 		$grantee_description=get_field('description');
 		$quote=get_field('quote');
@@ -9,11 +12,9 @@
 		
 		
 		
-		//if the grantee mission if empty
-		if (empty($grantee_mission)) {
-			//set description excerpt as mission
-			$grantee_mission = trunc($grantee_description,20);
-		}
+		$color = new Random_color();
+		$picked_color = $color->get_color($rand);
+
 		
 		//if there are images for this grantee
 		if (!empty($grantee_images)) {
@@ -41,46 +42,6 @@
 	  		}
 	  	}
 	  	
-	  	$rand=rand(1,4);
-	  	$colors = array('#79b118','#00c3df','#ca195c','#f4c021');
-	  	//#79b118; //green
-	  	//#00c3df; //blue
-		//#ca195c; //purple
-		//#f4c021; //orange
-	  	//shuffle 
-	  	shuffle($colors);
-	  	
-	  	$picked_color=$colors[$rand-1];
-	  	//print "RAND: ".$rand;
-	  	//print "<br>PICKED: ".$picked_color;
-	  	
-	  	//create div arrays so we can randomize block positions
-	  	function fuller() {
-	  		global $full_img_url;
-	  		global $picked_color;
-	  		return '<div class="full bgstyle" style="background-image:url(\''.$full_img_url.'\')">
-	  					 <div class="title">
-        					<span class="header" style="color:'.$picked_color.';">Recent Grantee</span><br>
-        					<span class="name">'.get_the_title().'</span>
-        				 </div>
-        			   </div>';
-	  	}
-        
-        function halfy($pos,$bg_type) {
-        	global $grantee_mission;
-        	global $picked_color;
-        	global $halfy_img_url;
-        	global $halfy_img_alt;
-        	if ($bg_type=='image') {
-        		$css_value = 'background-image:url(\''.$halfy_img_url.'\')';
-        		$halfy_content="";
-        	} else {
-        		$css_value = 'background-color:'.$picked_color.''; //must be the color
-        		$halfy_content=$grantee_mission;
-        		$halfy_content.='<p><a href="#" class="cr_btn">See more</a></p>';
-        	}
-        	return '<div class="halfy '.$pos.' bgstyle" style="'.$css_value.'"><div class="halfy-content">'.$halfy_content.'</div></div>';
-        }
         
 ?>
 
@@ -101,18 +62,18 @@
         	<?php 
         	switch ($rand) {
     			case "1":
-        			echo fuller();
+        			echo fuller($picked_color,$full_img_url);
         			break;
     			case "2":
-        			echo halfy('top','image');
-        			echo halfy('bottom','color');
+        			echo halfy('top','image',$picked_color,$halfy_img_url);
+        			echo halfy('bottom','color',$picked_color,$halfy_img_url);
         			break;
     			case "3":
-        			echo halfy('top','color');
-        			echo halfy('bottom','image');
+        			echo halfy('top','color',$picked_color,$halfy_img_url);
+        			echo halfy('bottom','image',$picked_color,$halfy_img_url);
         			break;
         		case "4":
-        			echo fuller();
+        			echo fuller($picked_color,$full_img_url);
         			break;
 			} ?> 	
         </div>
@@ -120,18 +81,18 @@
 			<?php 
         	switch ($rand) {
     			case "1":
-        			echo halfy('top','image');
-        			echo halfy('bottom','color');
+        			echo halfy('top','image',$picked_color,$halfy_img_url);
+        			echo halfy('bottom','color',$picked_color,$halfy_img_url);
         			break;
     			case "2":
-        			echo fuller();
+        			echo fuller($picked_color,$full_img_url);
         			break;
     			case "3":
-        			echo fuller(); 
+        			echo fuller($picked_color,$full_img_url); 
         			break;
         		case "4":
-        			echo halfy('top','color');
-        			echo halfy('bottom','image');
+        			echo halfy('top','color',$picked_color,$halfy_img_url);
+        			echo halfy('bottom','image',$picked_color,$halfy_img_url);
         			break;
 			} ?>
         </div>
@@ -139,9 +100,9 @@
         	<div class="col-xs-12">
         		<?php 
         			if (count($grantee_images)==1) {
-        				echo fuller();
+        				echo fuller($picked_color,$full_img_url);
         			}
-        			echo halfy('bottom','color'); 
+        			echo halfy('bottom','color',$picked_color,''); 
         		?>
         		
         	</div>
@@ -150,6 +111,9 @@
     </div>
 </div>
 
+<?php 
+//only details if not homepage
+if ( !is_front_page() ) { ?>
 <div class="grantee-detail">
     <div class="row">
     	<div class="col-md-2">
@@ -159,7 +123,7 @@
  			 
     			<?php if (!empty($quote)) { ?>
     				<div class="quote">
-    					<?php echo $quote; ?><span>&#8221;</span>
+    					<?php echo $quote; ?>
     				</div>
     			<?php } ?>
     			
@@ -199,3 +163,4 @@
 		</div>
 	</div>
 </div>
+<?php } ?>

@@ -1,3 +1,45 @@
+//COMMON
+.page-header {
+	margin:0;
+	padding:0;
+	border:none;
+}
+blockquote {
+	@extend .quote;
+	border-left: none;
+	position:relative;
+}
+//HOMEPAGE
+
+.cr_callouts {
+	margin:50px 0;
+	color:$text-color;
+
+	.cr_cta_sec_item_inner {
+		text-align:center;
+		border-bottom:1px solid $grey;
+		border-right:none;
+		padding-bottom:25px;
+		margin-bottom:25px;
+		.headline {
+			font-weight:300;
+			font-size:3rem;
+    	}
+		@include breakpoint(medium) {
+			border-bottom:none;
+			border-right:1px solid $grey;
+			padding-bottom:0;
+			margin-bottom:0;
+		}
+		.icon {
+			font-size:7rem;
+		}
+	}
+	.cr_cta_sec_item_3 .cr_cta_sec_item_inner {
+		border:none;
+	}
+}
+
 
 //GRANTEE LISTING PAGE
 
@@ -13,4 +55,15 @@
 }
 .grantee-filters {
 	
+}
+
+.no-results {
+	text-align:center;
+	i {
+		font-size:5em;
+		color:$brand-tertiary;
+	}
+}
+.grantee-empower-listing {
+	margin-bottom:50px;
 }

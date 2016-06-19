@@ -9,20 +9,30 @@
 global $post;
 
 $cat='';
-$meta_key='';
-$meta_value='';
-$year='';
+$meta_array=array();
+$selected_year='';
+$selected_boro='';
 if (!empty($_POST)):
-	if (isset($_POST["sector"])) {
+	if (isset($_POST["sector"]) && $_POST["sector"]!="0") {
 		$cat=$_POST["sector"];
 	}
-	if (isset($_POST["borough"])) {
-		$meta_key='borough';
-		$meta_key=$_POST["borough"];
+	if (isset($_POST["borough"]) && $_POST["borough"]!="Borough") {
+		$borough_data =  array (
+			'key' => 'borough',
+			'value' => $_POST["borough"]
+      	);
+      	$selected_boro = $_POST["borough"];
+      	//push into the meta_array
+      	array_push($meta_array,$borough_data);
 	}
-	if (isset($_POST["year"])) {
-		$meta_key='year';
-		$meta_key=$_POST["year"];
+	if (isset($_POST["grantee-year"]) && $_POST["grantee-year"]!="Year") {
+		$year_data =  array (
+			'key' => 'year',
+			'value' => $_POST["grantee-year"]
+      	);
+      	$selected_year = $_POST["grantee-year"];
+      	//push into the meta_array
+      	array_push($meta_array,$year_data);
 	}
 endif;
 ?>
@@ -32,9 +42,9 @@ endif;
 		<h1><?php echo get_the_title(); ?></h1>
 	</div>
 	<div class="col-sm-8 grantee-filters">
-		<form id="grantee-search" name="grantee-search" class="grantee-search" method="post" action="/grantees/">
+		<form id="grantee-search" name="grantee-search" class="grantee-search" method="post" action="<?php echo get_page_link(); ?>">
 			<labeL>Filter by:</labeL> &nbsp;
-       				<select name="year">
+       				<select name="grantee-year">
                     	<?php
                     		// must add field key of the field you want
         					$args = get_posts(array(
@@ -55,9 +65,9 @@ endif;
         					
         					//loop through out array of available years and print options
         					rsort($year_array, SORT_NUMERIC);
-        					echo '<option value="-1">'.__('Year','sage').'</option>';
+        					echo '<option value="Year">'.__('Year','sage').'</option>';
         					foreach ($year_array as $value) {
-        						echo '<option value="'.$value.'">'.$value.'</option>';
+        						echo '<option value="'.$value.'"'.(($value==$selected_year)?'selected="selected"':"").'>'.$value.'</option>';
         					}
 						?>
 						
@@ -65,19 +75,20 @@ endif;
                     </select> 
                     &nbsp;
                     <select name="borough">
-                    	<option>Borough</option>
-                        <option>Brooklyn</option>
-                        <option>Manhattan</option>
-                        <option>Queens</option>
-                        <option>Staten Island</option>
-                        <option>The Bronx</option>
+                    	<option value="Borough">Borough</option>
+                    	<?php
+                    	$boro_array = array('Brooklyn','Manhattan','Queens','Staten Island','The Bronx');
+                    	foreach ($boro_array as $value) {
+        					echo '<option value="'.$value.'"'.(($value==$selected_boro)?'selected="selected"':"").'>'.$value.'</option>';
+        					}
+        				?>
                     </select>
                     &nbsp;
                     
                     	<?php wp_dropdown_categories( array(
         						'show_option_all'    => __('Sector','sage'),
 								'show_option_none'   => '',
-								'option_none_value'  => '-1',
+								'option_none_value'  => 'Sector',
 								'orderby'            => 'name', 
 								'order'              => 'ASC',
 								'show_count'         => 0,
@@ -104,14 +115,13 @@ endif;
 $args = array(
 	'posts_per_page'   => -1,
 	'offset'           => 0,
-	'category'         => '',
-	'category_name'    => $cat,
+	'category'         => $cat,
+	'category_name'    => '',
 	'orderby'          => 'meta_value_num',
 	'order'            => 'DESC',
 	'include'          => '',
 	'exclude'          => '',
-	'meta_key'         => $meta_key,
-	'meta_value'       => $meta_value,
+	'meta_query'       => $meta_array,
 	'post_type'        => 'post',
 	'post_mime_type'   => '',
 	'post_parent'      => '',
@@ -123,25 +133,32 @@ $args = array(
 $myposts = get_posts( $args );
 $counter=0;
 
-
-foreach ( $myposts as $post ) : setup_postdata( $post );
-	if ($counter==0) :
-		echo '<div class="row">';
-	endif;
-			echo '<div class="col-sm-4 grantee-item">';
+if (!empty($myposts)) :
+	foreach ( $myposts as $post ) : setup_postdata( $post );
+		if ($counter==0) :
+			echo '<div class="row">';
+		endif;
+				echo '<div class="col-sm-6 col-md-3 grantee-item">';
 				//load the grantee template
-				include( locate_template( 'templates/content-grantee-item.php' ) );
+				include( locate_template( 'templates/content-grantee-item.php' ) );				
 			echo '</div>';
-	if ($counter<3) :
-		$counter++;
-	else:
-		$counter=0;
-	endif;
-	if ($counter==3) :
-		echo '</div>';		
-	endif;
-endforeach; 
-wp_reset_postdata();
+		if ($counter<4) :
+			$counter++;
+		else:
+			$counter=0;
+		endif;
+		if ($counter==4) :
+			echo '</div>';		
+		endif;
+	endforeach; 
+	wp_reset_postdata();
+else:
+	echo '<div class="no-results">';
+	echo '<h3>'.__('Oh no! We couldn’t find anything!','sage').'</h3>';
+	echo '<p>'.__('Try different filters?','sage').'</p>';
+	echo '<i class="fa fa-frown-o" aria-hidden="true"></i>';
+	echo '</div>';
+endif;
 
 ?>
 

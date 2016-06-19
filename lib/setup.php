@@ -92,6 +92,8 @@ function display_sidebar() {
   isset($display) || $display = !in_array(true, [
     // The sidebar will NOT be displayed if ANY of the following return true.
     // @link https://codex.wordpress.org/Conditional_Tags
+    is_single(),
+    is_page(),
     is_404(),
     is_front_page(),
     is_page_template('template-custom.php'),
