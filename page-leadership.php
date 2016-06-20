@@ -29,10 +29,9 @@
 					echo '</div>';
 			if ($counter<4) :
 				$counter++;
-			else:
-				$counter=0;
 			endif;
 			if ($counter==4) :
+				$counter=0;
 				echo '</div>';		
 			endif;
 			}

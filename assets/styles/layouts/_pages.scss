@@ -9,6 +9,36 @@ blockquote {
 	border-left: none;
 	position:relative;
 }
+
+//Line-On-Sides Headers
+
+
+h3.fancy {
+  position: relative;
+  text-align: center;
+}
+
+h3.fancy span {
+  background: $body-bg;
+  padding: 0 15px;
+  position: relative;
+  z-index: 1;
+}
+
+h3.fancy:before {
+  background: $grey;
+  content: "";
+  display: block;
+  height: 1px;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+}
+
+h3.fancy:before {
+  left: 0;
+}
+
 //HOMEPAGE
 
 .cr_callouts {
@@ -56,7 +86,9 @@ blockquote {
 .grantee-filters {
 	
 }
-
+.grantee-row {
+	margin-bottom:30px;
+}
 .no-results {
 	text-align:center;
 	i {

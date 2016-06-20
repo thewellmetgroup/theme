@@ -47,27 +47,88 @@ endif;
        				<select name="grantee-year">
                     	<?php
                     		// must add field key of the field you want
-        					$args = get_posts(array(
-        						'posts_per_page'   => -1,
-        						'offset'           => 0,
-        						'post_status'      => 'publish'
-        					) );
+        					$args = array(
+								'posts_per_page'   => -1,
+								'offset'           => 0,
+								'category'         => '',
+								'category_name'    => '',
+								'orderby'          => '',
+								'order'            => 'DESC',
+								'post_type'        => 'post',
+								'post_mime_type'   => '',
+								'post_parent'      => '',
+								'author'	   	   => '',
+								'post_status'      => 'publish',
+								'suppress_filters' => true 
+							);
         					$myposts = get_posts( $args );
         					$year_array = array();
+        					$total_grants = ''; //array();
+        					$year_total = 0;
+        					//function to check if value is in our multidimensional array
+        					function in_array_r($needle, $haystack, $strict = false) {
+    							foreach ($haystack as $item) {
+        							if (($strict ? $item === $needle : $item == $needle) || (is_array($item) && in_array_r($needle, $item, $strict))) {
+            							return true;
+            						}
+            					}
+            					return false;
+            				}
+            				
+							$curr_year = 0;
         					foreach ( $myposts as $post ) : setup_postdata( $post );
         						$my_year = get_field('year');
-        						if(!in_array(get_field('year'), $year_array)){
-        							$year_array[]=get_field('year');
+        						//since we're doing this already, calculate total grant amounts given in each year and push into array for use later on this page
+        						if ($curr_year!=$my_year) {
+        							 $year_total=0;
+        							 $curr_year = $my_year;
         						}
+        						$year_total = $year_total +intval(str_replace(str_split('$,'),'',get_field('grant_amount')));
+        						
+        						//echo $year_total;
+        						
+        						if (in_array_r($my_year, $year_array)) {
+        							//found
+        							//just update the grants total
+        							foreach($year_array as &$value){
+    									if($value['year'] === $my_year){
+        									$value['grants_total'] = $year_total;
+        									// Stop the loop after we've found the year
+        									break;
+    									}
+									}
+        							
+        						} else {
+        							$this_year = array(
+        								'year' => get_field('year'),
+										'grants_total' => $year_total
+									);
+        							array_push($year_array,$this_year );
+        						}
+        						
+        						
+        						//echo $year_total;
         					endforeach; 
-        					//print_r($year_array);
+        					
         					wp_reset_postdata();
         					
-        					//loop through out array of available years and print options
-        					rsort($year_array, SORT_NUMERIC);
+        					//print_r($year_array);
+        					
+        					//loop through array of available years and print options
+        					//sort it by year
+        					foreach ($year_array as $key => $row) {
+    							// replace 0 with the field's index/key
+    							$dates[$key]  = $row['year'];
+    						}
+    						array_multisort($dates, SORT_DESC, $year_array);
+    						
+    						
+    						
+    						
+        					//rsort($year_array, SORT_NUMERIC);
         					echo '<option value="Year">'.__('Year','sage').'</option>';
         					foreach ($year_array as $value) {
-        						echo '<option value="'.$value.'"'.(($value==$selected_year)?'selected="selected"':"").'>'.$value.'</option>';
+        						echo '<option value="'.$value['year'].'"'.(($value['year']==$selected_year)?'selected="selected"':"").'>'.$value['year'].'</option>';
         					}
 						?>
 						
@@ -132,22 +193,54 @@ $args = array(
 
 $myposts = get_posts( $args );
 $counter=0;
+$curr_year=0;
+$reset_row=false;
 
 if (!empty($myposts)) :
 	foreach ( $myposts as $post ) : setup_postdata( $post );
+		//print the year divider
+		//only if meta array isn't empty and the form has not yet been submitted
+		if ($curr_year!=get_field('year') && (!empty($meta_array) || empty($_POST))) {
+			//close the item row only if it hasn't been already
+			if ($counter>0) {
+				echo '</div>';
+				//reset counter
+				$counter=0;
+			}
+			$curr_year = get_field('year');
+			//find the grants total for this year
+        	foreach($year_array as &$value){
+    			if($value['year'] === $curr_year){
+    				setlocale(LC_MONETARY, 'en_US');
+					$total_grants = money_format('%.0n', floor($value['grants_total']));
+        			//$total_grants = $value['grants_total'];
+        			// Stop the loop after we've found the year
+        			break;
+    			}
+			}
+			echo '<div class="row divider">
+					<div class="col-xs-12">
+						<h3 class="fancy"><span>'.$curr_year.' / '.$total_grants.'</span></h3>
+					</div>
+				</div>';	
+		}
+		
+		
 		if ($counter==0) :
-			echo '<div class="row">';
+			echo '<div class="row grantee-row">';
 		endif;
 				echo '<div class="col-sm-6 col-md-3 grantee-item">';
-				//load the grantee template
-				include( locate_template( 'templates/content-grantee-item.php' ) );				
-			echo '</div>';
+					//load the grantee template
+					include( locate_template( 'templates/content-grantee-item.php' ) );				
+				echo '</div>';
 		if ($counter<4) :
 			$counter++;
-		else:
-			$counter=0;
+			//do math on the total grants for this year
+			$total_grants = $total_grants + get_field('grant_amount');
 		endif;
 		if ($counter==4) :
+			$counter=0;
+			$reset_row=false;
 			echo '</div>';		
 		endif;
 	endforeach; 
