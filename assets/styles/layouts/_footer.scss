@@ -17,24 +17,34 @@ footer {
     		margin:15px 0;
     		width:100%;
     		
-    		a:link, a:visited, a:focus, a:hover {
-    			color:$footer-text;
+    		a {
+    			width:80%;
+    			display:block;
     			font-weight:700;
     			text-decoration:none;
+    			&:link, &:visited {
+    				color:$footer-text;
+    			}
+    			&:hover, &:active {
+    				color:$brand-primary;
+    			}
     		}
     		
     		
     		ul.sub-menu {
     			li {
-    				margin:5px 0;
+    				margin:0;
     				width:100%;
     				a {
-    					font-weight:400;
+    					font-weight:300;
+    					line-height: 1;
+    					display: block;
+    					margin: 5px 0;
     				}
     			}
     		}	
     		@include breakpoint(medium) {
-				width:25%;
+				width:19%;
 				margin:50px 0;
 			}
     	}

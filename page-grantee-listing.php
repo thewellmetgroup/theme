@@ -12,6 +12,7 @@ $cat='';
 $meta_array=array();
 $selected_year='';
 $selected_boro='';
+
 if (!empty($_POST)):
 	if (isset($_POST["sector"]) && $_POST["sector"]!="0") {
 		$cat=$_POST["sector"];
@@ -104,6 +105,7 @@ endif;
 										'grants_total' => $year_total
 									);
         							array_push($year_array,$this_year );
+        						
         						}
         						
         						
@@ -116,18 +118,19 @@ endif;
         					
         					//loop through array of available years and print options
         					//sort it by year
-        					foreach ($year_array as $key => $row) {
+        					
+        					/*foreach ($year_array as $key => $row) {
     							// replace 0 with the field's index/key
     							$dates[$key]  = $row['year'];
     						}
-    						array_multisort($dates, SORT_DESC, $year_array);
-    						
+    						array_multisort($dates, SORT_DESC, $year_array);*/
+    						//print_r($year_array);
     						
     						
     						
         					//rsort($year_array, SORT_NUMERIC);
         					echo '<option value="Year">'.__('Year','sage').'</option>';
-        					foreach ($year_array as $value) {
+        					foreach ($year_array as &$value) {
         						echo '<option value="'.$value['year'].'"'.(($value['year']==$selected_year)?'selected="selected"':"").'>'.$value['year'].'</option>';
         					}
 						?>
@@ -139,7 +142,7 @@ endif;
                     	<option value="Borough">Borough</option>
                     	<?php
                     	$boro_array = array('Brooklyn','Manhattan','Queens','Staten Island','The Bronx');
-                    	foreach ($boro_array as $value) {
+                    	foreach ($boro_array as &$value) {
         					echo '<option value="'.$value.'"'.(($value==$selected_boro)?'selected="selected"':"").'>'.$value.'</option>';
         					}
         				?>
@@ -172,7 +175,6 @@ endif;
 </div>
 
 <?php
-
 $args = array(
 	'posts_per_page'   => -1,
 	'offset'           => 0,
@@ -218,6 +220,13 @@ if (!empty($myposts)) :
         			break;
     			}
 			}
+			/*print_r($borough_data);
+			if (count($borough_data)==0 && empty($cat)) {
+				$rowheader = $curr_year.' / '.$total_grants;
+			} else {
+				$rowheader = $curr_year;
+			}*/
+			
 			echo '<div class="row divider">
 					<div class="col-xs-12">
 						<h3 class="fancy"><span>'.$curr_year.' / '.$total_grants.'</span></h3>

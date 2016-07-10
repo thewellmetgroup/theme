@@ -28,7 +28,7 @@ endif; ?>
                 <div class="cr_cta_sec_item_inner">
                     <i class="icon icon_handshake"></i>
                     <h2 class="headline"><?php _e('Who are our <br>grantees?','sage'); ?></h2>
-                    <a href="/grantees/" class="cr_btn"><?php _e('Learn more','sage'); ?></a>
+                    <a href="/grantees/" class="cr_btn callout"><?php _e('Learn more','sage'); ?></a>
                 </div>
             </div>
             
@@ -37,7 +37,7 @@ endif; ?>
                 <div class="cr_cta_sec_item_inner">
                     <i class="icon icon_stats-lines"></i>
                     <h2 class="headline"><?php _e('WellMet’s<br>impact','sage'); ?></h2>
-                    <a href="/impact-map/" class="cr_btn"><?php _e('Learn more','sage'); ?></a>
+                    <a href="/impact-map/" class="cr_btn callout"><?php _e('Learn more','sage'); ?></a>
                 </div>
             </div>
             
@@ -46,7 +46,7 @@ endif; ?>
                 <div class="cr_cta_sec_item_inner">
                     <i class="icon icon_team-women"></i>
                     <h2 class="headline"><?php _e('About The <br>WellMet Group','sage'); ?></h2>
-                    <a href="/about-us/" class="cr_btn"><?php _e('Learn more','sage'); ?></a>
+                    <a href="/about-us/" class="cr_btn callout"><?php _e('Learn more','sage'); ?></a>
                 </div>
             </div>
     

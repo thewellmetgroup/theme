@@ -167,3 +167,33 @@ class Random_color {
     		}
 		}
 /**** END grantees *************/
+
+
+//add leadership shortcode
+function show_gallery( $atts ){
+	$html = '<div class="grantee-detail">';
+		$html .= '<div class="row gutter-15">';
+			$html .= '<div class="col-sm-6">';
+				$html .= '<div class="full bgstyle" style="background-image:url(\''.$atts['full_img_url'].'\')">';
+					$html .= '<div class="title" style="text-transform:none">';
+						$html .= $atts['caption'];
+					$html .= '</div>';
+				$html .= '</div>';
+    		$html .= '</div>';
+    		$html .= '<div class="col-sm-6 right">';
+    			$css_value = 'background-image:url(\''.$atts['halfy_img_url'].'\')';
+    			$html .= '<div class="halfy top bgstyle" style="'.$css_value.'">';
+    			$html .= '</div>';
+    			
+    			$css_value = 'background-color:'.$atts['picked_color'];
+    			$html .= '<div class="halfy bottom bgstyle" style="'.$css_value.'">';
+    				$html .= '<div class="halfy-content">'.$atts['quote'].'</div>';
+    			$html .= '</div>';
+    			
+   			 $html .= '</div>';
+    	$html .= '</div>';
+	$html .= '</div>';
+	
+	return $html;
+}
+add_shortcode( 'wellmet_gallery', 'show_gallery' );

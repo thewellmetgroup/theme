@@ -28,6 +28,22 @@
     'home': {
       init: function() {
         // JavaScript to be fired on the home page
+        //make the larger callouts change color on rollovers
+        $('.callout').mouseenter(function() {
+    		$(this).parent().css('color','#79b118');
+    	}).mouseleave(function() {
+    		$(this).parent().css('color','#31333d');
+    	});
+      },
+      finalize: function() {
+        // JavaScript to be fired on the home page, after the init JS
+      }
+    },
+    // Grantees page
+    'grantees': {
+      init: function() {
+        // JavaScript to be fired on the home page
+        //alert('hello!');
       },
       finalize: function() {
         // JavaScript to be fired on the home page, after the init JS

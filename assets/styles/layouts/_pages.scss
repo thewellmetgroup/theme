@@ -1,9 +1,10 @@
 //COMMON
 .page-header {
-	margin:0;
-	padding:0;
+	//margin:0;
+	//padding:0;
 	border:none;
 }
+
 blockquote {
 	@extend .quote;
 	border-left: none;
@@ -70,6 +71,10 @@ h3.fancy:before {
 	}
 }
 
+//Impact map
+.tableauPlaceholder {
+	margin:0 auto;
+}
 
 //GRANTEE LISTING PAGE
 

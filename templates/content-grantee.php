@@ -123,7 +123,7 @@ if ( !is_front_page() ) { ?>
  			 
     			<?php if (!empty($quote)) { ?>
     				<div class="quote">
-    					<?php echo $quote; ?>
+    					<?php echo $quote; ?>&#8221;
     				</div>
     			<?php } ?>
     			

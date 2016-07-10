@@ -156,6 +156,11 @@ a:active {
     color: $brand-tertiary;
 }
 
+img {
+	max-width:100%;
+	height:auto;
+}
+
 // 10px gutter
 .gutter-15.row {
   margin-right: -7.5px;
@@ -232,12 +237,12 @@ a:active {
 	&:before {
 		@extend .icon;
 		@extend .icon_left-quote;
-		font-size:30px;
+		font-size:15px;
 		display: block;
 		position: absolute;
 		text-indent: 0;
-		top: 35px;
-		left: -50px;
+		top: 38px;
+		left: -15px;
 		text-align: center;
 		/*content: "\f10d";
 		@include iconfix;*/
